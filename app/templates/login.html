@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+    <main style="width: 50%;" class="mx-auto text-center">
+        <form action="/auth/login" method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-3 row py-3" >
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    {{ form.email(class="form-control") }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    {{ form.password(class="form-control") }}
+                </div>
+            </div>
+            {{ form.submit(class='btn btn-primary') }}
+        </form>
+
+        <div class="py-3">
+            <label for="">Don't Have an Account </label> <br>
+            <a href="/auth/register">Register</a>
+        </div>
+    </main>
+
+{% endblock %}
