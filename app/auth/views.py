@@ -3,7 +3,6 @@
 
 from crypt import methods
 from re import L
-import bcrypt
 from flask_bcrypt import Bcrypt
 from flask import Blueprint, redirect, render_template, request, url_for
 from app import app

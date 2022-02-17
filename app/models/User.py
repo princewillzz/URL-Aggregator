@@ -8,4 +8,5 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(250), unique=True)
     password = db.Column(db.String(250))
     username = db.Column(db.String(100), unique=True)
+    bio = db.Column(db.Text)
     links = db.relationship('Link')

@@ -28,7 +28,8 @@ def userInfo(username):
         links = existing_user.links
         userinfo = {
             'email': existing_user.email,
-            'username': existing_user.username
+            'username': existing_user.username,
+            'bio': existing_user.bio
         }
 
     return render_template("profile.html", links=links, userinfo=userinfo, errorMsg=errorMsg)

@@ -1,0 +1,64 @@
+{% extends "admin-base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block body %}
+
+<main class="mx-auto">
+
+    <section class="mx-auto text-center py-3" style="width: 40%;">
+
+        {% if errorMsg %}
+            <div class="alert alert-danger" role="alert">
+                {{ errorMsg }}
+            </div>
+        {% endif %}
+        
+    </section>
+
+    <section style="width: 60vw;" class="mx-auto py-3">
+        <div class="alert alert-success" role="alert">
+            About you
+        </div>
+        
+        <form action="/admin/details" method="post">
+            {{ userForm.hidden_tag() }}
+
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" value="{{ current_user.email }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="username" class="col-form-label">Public Username</label>
+                <div class="col-sm-10">
+                {{ userForm.username(class="form-control", value=current_user.username) }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="col-form-label">Password</label>
+                <div class="col-sm-10">
+                {{ userForm.password(class="form-control", type="password", value=current_user.password) }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"> -->
+                {{ userForm.bio(class="form-control", value=current_user.bio) }}
+                <!-- </textarea> -->
+            </div>
+
+            {{ userForm.submit(class='btn btn-primary') }}        
+        </form>
+
+    </section>
+
+
+</main>
+
+
+{% endblock %}

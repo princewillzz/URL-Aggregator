@@ -8,8 +8,12 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 from flask_login import current_user, login_required
 from itsdangerous import json
 from app.forms.LinkAddForm import LinkAddForm
+from app.forms.UserDetailsForm import UserDetailsForm
 from app.models.Link import Link
 from app import db
+from app.models.User import User
+
+from app.auth.views import bcrypt, load_user
 
 mod_admin = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -60,3 +64,51 @@ def admin_dashboard():
 
     return render_template("admin.html", links=links, form=form, errorMsg=error)
 
+
+@mod_admin.get("/settings")
+@login_required
+def settings_view():
+
+    error = session.get('error')
+    if error:
+        session.pop('error')
+
+    userDetailsForm = UserDetailsForm()
+
+
+    return render_template(
+        "settings.html",
+        userForm=userDetailsForm,
+        error=error
+    )
+
+@mod_admin.post("/details")
+@login_required
+def update_user_details():
+
+    
+
+    userDetailsForm = UserDetailsForm()
+
+    if userDetailsForm.validate_on_submit():
+        user = User.query.get(current_user.id)
+
+        user.bio = userDetailsForm.bio.data
+        user.username = userDetailsForm.username.data
+        if userDetailsForm.password.data and not (userDetailsForm.password.data == current_user.password):
+            hashed_password = bcrypt.generate_password_hash(userDetailsForm.password.data)
+            user.password = hashed_password
+
+        db.session.commit()
+
+        
+        return redirect(url_for('admin.settings_view'))
+
+    # If errors exist 
+    if len(userDetailsForm.username.errors) > 0:
+        session['error'] = userDetailsForm.username.errors[0]
+
+
+    return redirect(
+        url_for('admin.settings_view', error=session.get('error')),
+    )
