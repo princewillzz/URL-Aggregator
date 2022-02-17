@@ -3,7 +3,7 @@
 
 from re import L
 from flask_bcrypt import Bcrypt
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, session, url_for
 from app import app
 
 from app.forms.LoginForm import LoginForm
@@ -31,6 +31,10 @@ def login_view():
 
     form = LoginForm()
 
+    error = session.get('error')
+    if error:
+        session.pop('error')
+
     if request.method == 'GET':
         return render_template("login.html", form=form)
 
@@ -40,8 +44,13 @@ def login_view():
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
                 return redirect(url_for('admin.admin_dashboard'))
+            else:
+                error = "Incorrect Password!!"
+        else:
+            error = "Incorrect email!!"
 
-    return render_template("login.html", form=form)
+
+    return render_template("login.html", form=form, error=error)
 
 
 @mod_auth.route("/register", methods=['GET', 'POST'])

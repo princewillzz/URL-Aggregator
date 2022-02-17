@@ -5,6 +5,12 @@
 {% block body %}
 
     <main style="width: 50%;" class="mx-auto text-center">
+        {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+        {% endif %}
+
         <form action="/auth/login" method="post">
             {{ form.hidden_tag() }}
             <div class="mb-3 row py-3" >
