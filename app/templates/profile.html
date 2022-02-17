@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if userinfo %}
+        {{ userinfo.username }}
+    {% else %}
+        Profile
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+<main class="mx-auto">
+
+    <section class="mx-auto text-center py-3" style="width: 40%;">
+
+        {% if errorMsg %}
+            <div class="alert alert-danger" role="alert">
+                {{ errorMsg }}
+            </div>
+        {% endif %}
+        
+    </section>
+
+    <section style="width: 60vw;" class="mx-auto py-3">
+
+        {% if userinfo %}
+        <div class="alert alert-success" role="alert">
+            contactMe: {{ userinfo.email }}
+        </div>
+        {% endif %}
+
+        {% for link in links %}
+            <div class="card" id="link{{link.id}}">
+                <h5 class="card-header">{{ link.title }}</h5>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">{{ link.link }}</a></h5>
+                </div>
+              </div>
+        {% endfor %}
+
+    </section>
+
+
+</main>
+
+{% endblock %}

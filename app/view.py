@@ -17,8 +17,18 @@ def userInfo(username):
             username=username
         ).first()
     
-    if not existing_user:
-        return "404"
-    print(existing_user.links)
 
-    return render_template("admin.html", links=existing_user.links)
+    errorMsg = None
+    links = []
+    userinfo = None
+
+    if not existing_user:
+        errorMsg = "User Not Found!!"
+    else:
+        links = existing_user.links
+        userinfo = {
+            'email': existing_user.email,
+            'username': existing_user.username
+        }
+
+    return render_template("profile.html", links=links, userinfo=userinfo, errorMsg=errorMsg)

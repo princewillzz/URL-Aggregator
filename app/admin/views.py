@@ -28,7 +28,7 @@ def add_link():
 
     session['error'] = form.link.errors and form.link.errors[0]
 
-    return redirect(url_for('admin.admin_dashboard', error=error))
+    return redirect(url_for('admin.admin_dashboard', error=session['error']))
 
 
 @mod_admin.delete("/link/<int:linkId>")
