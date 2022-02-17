@@ -1,11 +1,7 @@
-from pydoc import render_doc
-from sys import prefix
-from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 
-from app import db
 from app.models.User import User
 
 class RegisterForm(FlaskForm):

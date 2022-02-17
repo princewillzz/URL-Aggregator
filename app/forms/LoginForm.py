@@ -1,10 +1,8 @@
-from pydoc import render_doc
-from wsgiref.validate import validator
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
+from wtforms.validators import InputRequired, Length
 
-from app import db
 
 class LoginForm(FlaskForm):
 

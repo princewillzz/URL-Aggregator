@@ -1,7 +1,6 @@
 
 
 
-from crypt import methods
 from re import L
 from flask_bcrypt import Bcrypt
 from flask import Blueprint, redirect, render_template, request, url_for
@@ -12,7 +11,7 @@ from app.forms.LoginForm import LoginForm
 from app.forms.RegisterForm import RegisterForm
 from app.models.User import User
 
-from flask_login import login_user, LoginManager, login_required, current_user, logout_user
+from flask_login import login_user, LoginManager, login_required, logout_user
 
 from app import db
 
