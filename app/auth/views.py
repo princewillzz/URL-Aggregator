@@ -36,7 +36,6 @@ def login_view():
     if request.method == 'GET':
         return render_template("login.html", form=form)
 
-    print(form.validate_on_submit(), form.errors)
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user:

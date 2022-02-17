@@ -1,3 +1,68 @@
 {% extends "admin-base.html" %}
 
 {% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+<main class="mx-auto">
+
+    <section class="mx-auto text-center py-3" style="width: 40%;">
+
+        <form id="urlAddForm" method="post" action="/admin/link">
+            {{ form.hidden_tag() }}
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Title</span>
+                <!-- <input name="title" type="text" class="form-control" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1"> -->
+                {{ form.title(class="form-control") }}
+            </div>
+            
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Link</span>
+                <!-- <input name="link" type="text" class="form-control" placeholder="Link" aria-label="Link" aria-describedby="basic-addon1"> -->
+                {{ form.link(class="form-control") }}
+            </div>
+            
+            {{ form.submit(class='btn btn-success') }}
+            <!-- <button class="btn btn-success" type="submit">Create</button> -->
+            
+        </form>
+    </section>
+
+    <section style="width: 60vw;" class="mx-auto py-3">
+
+        {% for link in links %}
+            <div class="card" id="link{{link.id}}">
+                <h5 class="card-header">{{ link.title }}</h5>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">{{ link.link }}</a></h5>
+                    
+                  <i onclick="deleteLink('{{ link.id }}')" class="bi bi-trash" style="color: red; font-size: 20px; float: right; cursor: pointer;"></i>
+
+                </div>
+              </div>
+        {% endfor %}
+
+    </section>
+
+
+</main>
+
+
+<script>
+    function deleteLink(linkId) {
+
+        fetch(`/admin/link/${linkId}`, {
+            method: 'DELETE'
+        })
+        .then(res=>{
+            if(res.status === 200) {
+                document.getElementById(`link${linkId}`)
+                    .remove()
+            } else {
+                alert("Unable to delete!! Please try again!!")
+            }
+        })
+        .catch(e => console.log(e))        
+    }
+</script>
+{% endblock %}
