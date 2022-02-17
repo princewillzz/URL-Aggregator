@@ -8,6 +8,11 @@
 
     <section class="mx-auto text-center py-3" style="width: 40%;">
 
+        {% if errorMsg %}
+            <div class="alert alert-danger" role="alert">
+                {{ errorMsg }}
+            </div>
+        {% endif %}
         <form id="urlAddForm" method="post" action="/admin/link">
             {{ form.hidden_tag() }}
             <div class="input-group mb-3">
