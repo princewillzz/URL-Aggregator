@@ -1,6 +1,7 @@
 # URL-Aggregator
 
-
+## Deployed Project Link
+https://url-aggregate.herokuapp.com/auth/login?next=%2Fadmin%2F
 
 
 ## Demo (click on play button to watch)
