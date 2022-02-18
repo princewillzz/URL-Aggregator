@@ -3,6 +3,9 @@
 ## Deployed Project Link
 https://url-aggregate.herokuapp.com/
 
+#### To view your public profile visit:
+https://url-aggregate.herokuapp.com/yourusername
+
 
 ## Demo (click on play button to watch)
 
